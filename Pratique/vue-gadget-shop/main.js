@@ -11,6 +11,17 @@ const app = Vue.createApp({
             cart: []
         }
     },
+    computed: {
+        cartTotal() {
+            return this.cart.reduce((total, gadget) => {
+                return total + parseFloat(gadget.price.replace('$', ''));
+            }, 0).toFixed(2);
+        },
+        discountedTotal() {
+            const discountRate = 0.1; // 10% discount for premium users
+            return (this.cartTotal * (1 - discountRate)).toFixed(2);
+        }
+    },
     methods: {
         addToCart(gadget) {
             this.cart.push(gadget);
