@@ -1,38 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Vue Gadget Shop</title>
     <!-- style -->
     <link rel="stylesheet" href="style.css" />
     <!-- vue js -->
     <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div id="app">
-        <h1>{{ title }}</h1>
-        <p>{{ description }}</p>
-        <div class="gadget-container">
-            <div 
-                class="gadget"
-                v-for="(gadget, index) in gadgets"
-                :key="gadget.id"
-            >
-                <div class="gadget-image">
-                    <img :src="gadget.image" :alt="gadget.name" />
-                </div>
-                <h2>{{ gadget.name }}</h2>
-                <p class="price">{{ gadget.price }}</p>
-                <p :class="gadget.inStock ? 'in-stock' : 'out-of-stock'">
-                    {{ gadget.inStock ? '✅ En Stock' : '❌ En rupture de Stock' }}
-                </p>
-            </div>
+      <h1>{{ title }}</h1>
+      <p>{{ description }}</p>
+      <div class="cart">
+        <h2>🛒 Mon Panier ({{ cart.length }})</h2>
+        <ul>
+          <li v-for="(item, index) in cart" :key="index">
+            {{ item.name }} - {{ item.price }}
+            <button class="remove-btn" @click="removeFromCart(index)">❌</button>
+          </li>
+        </ul>
+        <p v-if="cart.length === 0">Votre panier est vide.</p>
+      </div>
+      <div class="gadget-container">
+        <div class="gadget" v-for="(gadget, index) in gadgets" :key="gadget.id">
+          <div class="gadget-image">
+            <img :src="gadget.image" :alt="gadget.name" />
+          </div>
+          <h2>{{ gadget.name }}</h2>
+          <p class="price">{{ gadget.price }}</p>
+          <p :class="gadget.inStock ? 'in-stock' : 'out-of-stock'">
+            {{ gadget.inStock ? '✅ En Stock' : '❌ En rupture de Stock' }}
+          </p>
+          <button :disabled="!gadget.inStock" @click="addToCart(gadget)">
+            Ajouter au Panier
+          </button>
         </div>
+      </div>
     </div>
 
     <script src="main.js"></script>
     <script>
-        const mountedApp = app.mount('#app')
+      const mountedApp = app.mount("#app");
     </script>
-</body>
+  </body>
 </html>
