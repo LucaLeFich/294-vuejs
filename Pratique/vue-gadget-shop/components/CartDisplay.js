@@ -6,7 +6,10 @@ app.component('cart-display', {
         <h2>🛒 Mon Panier ({{ cart.length }})</h2>
         <ul>
             <li v-for="(item, index) in cart" :key="index">
-                {{ item.name }} - {{ item.price }}
+                {{ item.name }} - {{ item.price }}$
+                <button class="subtract-btn" @click="subtractFromCart(item)">➖</button>
+                {{ item.quantity }}
+                <button class="add-btn" @click="addToCart(item)">➕</button>
                 <button class="remove-btn" @click="removeFromCart(index)">
                     ❌
                 </button>
@@ -25,7 +28,7 @@ app.component('cart-display', {
     computed: {
         cartTotal() {
             return this.cart.reduce((total, gadget) => {
-                return total + parseFloat(gadget.price.replace('$', ''));
+                return total + gadget.price;
             }, 0).toFixed(2);
         },
         discountedTotal() {

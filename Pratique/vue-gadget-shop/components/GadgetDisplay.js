@@ -7,7 +7,7 @@ app.component('gadget-display', {
             <img :src="gadget.image" :alt="gadget.name" />
         </div>
         <h2>{{ gadget.name }}</h2>
-        <p class="price">{{ gadget.price }}</p>
+        <p class="price">{{ gadget.price }}$</p>
         <p :class="gadget.inStock ? 'in-stock' : 'out-of-stock'">
             {{ gadget.inStock ? '✅ En Stock' : '❌ En rupture de Stock' }}
         </p>
